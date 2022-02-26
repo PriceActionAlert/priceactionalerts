@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Price Action Alerts</title>
+
+</head>
+
+<body style="background-color: hsl(0,0%,94%);">
+
+    <table align="center" border="0" cellpadding="0" cellspacing="0"
+           width="1000" bgcolor="white" style="border:2px solid black">
+        <tbody>
+            <tr>
+                <td align="center">
+                    <br />
+                    <table align="center" border="0" cellpadding="0"
+                           cellspacing="0" class="col-650" width="650">
+                        <tbody>
+
+                            <tr>
+                                <td align="center"
+                                    style="background-color: #0d6efd;
+                                           height: 100px;">
+
+                                    <a href="#" style="text-decoration: none;">
+                                        <p style="color:white;font-weight:bold;">
+                                            {%if todaysquote%}
+                                            {{todaysquote.0}} - By {{todaysquote.1}}
+                                            {% endif %}
+                                        </p>
+
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+           <tr style="height: 50px;">
+                <td align="center" style="border: none;
+                           border-bottom: 2px solid #000303;
+                           padding-right: 20px;padding-left:20px">
+
+                    <p style="font-weight: bolder;font-size: 30px;
+                              letter-spacing: 0.025em;
+                              color:black;">
+                        Hello {{user|capitalize}},
+                    </p>
+                    <h2>Price action movement of your selected stocks. </h2>
+                </td>
+            </tr>
+
+           {% for i,j in data.items() %}
+           <!--tr style="display: inline-block;"-->
+                <!--td style="height: 150px; padding: 20px; border: none; border-bottom: 2px solid #361B0E; background-color: white;"-->
+                    <h1 align="center" style="text-align: center; align-items: center; color: #FAFCFC; background: #0d6efd; font-weight: bold">{{i}}</h1>
+                    <p class="data" style="text-align: justify-all; align-items: center; font-size: 15px; padding-bottom: 12px;">
+                    {% set comments = j.split(', ') %}
+                      {% for item in comments %}
+                       <div class ="row">
+                         <ul>
+                         {% if item|length == 0 %}
+                           <h3>No data avialable for this stock.</h3>
+                         {% endif %}
+
+                         {% if 'Price Zone:' in item %}
+                           <li><p><strong>{{item}}</strong><p></li>
+                         {% elif 'Status:' in item %}
+                             <li><p><strong>{{item}}</strong><p></li>
+                         {% else %}
+                           <li><p>{{item}}<p></li>
+                         {% endif %}
+                         </ul>
+                       </div>
+                      {% endfor %}
+                      <hr>
+
+                    </p>
+            {% endfor %}
+            </p>
+            </br>
+
+            <!--p><h2 style="margin: 10px;">Regards,</h2></p-->
+            <p style="margin: 10px;">You can unsubscribe by disabling the Email option on your account Profile page.</p>
+            <p><h2 style="margin: 10px;">PriceActionAlerts</h2></p>
+
+        </tbody>
+    </table>
+</body>
+
+
+
+
+</html>

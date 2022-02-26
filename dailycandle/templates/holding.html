@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+    <!--script src="https://cdn.jsdelivr.net/npm/chart.js"></script-->
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script-->
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script-->
+
+     <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <title>Price Action Alerts</title>
+    <meta http-equiv="refresh" content="600">
+
+    <style>
+          *{
+             padding: 0;
+             margin: 0;
+             box-sizing: border-box;
+           }
+           body{
+               background: rgb(245,245,245);
+
+           }
+           .row{
+                background: white;
+                border-radius: .5rem;
+                box-shadow: 12px 12px 22px grey;
+           }
+           .btn2{
+                border: none;
+                outline: none;
+                height: 10px;
+                width: 100%;
+                background-color: black;
+                color: white;
+                border-radius: 4px;
+                font-weight: bold;
+           }
+           .btn1:hover{
+                background: white;
+                border: 1px solid;
+                color: black;
+           }
+           .table {
+                border-collapse: separate;
+                border-spacing:1 10px;
+            }
+
+      </style>
+
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0d6efd;">
+      <div class="container-fluid">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-activity" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2Z"/>
+            </svg>
+            <a class="navbar-brand mx-1" href="{% url 'dailycandle:index' %}"><h2>PriceActionAlerts...</h2></a>
+
+        <div class="collapse navbar-collapse d-flex flex-row-reverse bd-highlight" id="navbarNavAltMarkup" >
+          <div class="navbar-nav" >
+            <a class="nav-link active" aria-current="page" href="{% url 'dailycandle:index' %}"><h5>Watchlist</h5></a>
+            <a class="nav-link active" aria-current="page" href="{% url 'dailycandle:holding' %}"><h5>Holding</h5></a>
+            <a class="nav-link active" aria-current="page" href="{% url 'dailycandle:profile' %}"><h5>Profile</h5></a>
+            <a href="{% url 'users:logout' %}">
+            <button class="btn btn-light mx-3" type="submit"><h5>Logout</h5></button></a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+  <div class="container my-5">
+    <p><h1 class="mb-5" style="font-family:'Georgia, serif'">Holding Dashboard:</h1></p>
+    {% if nudgedata %}
+     <div class="row overflow-hidden">
+     <table class="table table-hover align-middle mb-0 bg-white">
+        <thead>
+          <tr>
+            <th scope="col" style="font-family:'Georgia, serif'; font-size:22px">Stock</th>
+            <th scope="col" style="font-family:'Georgia, serif'; font-size:22px">BuyPrice</th>
+            <th scope="col" style="font-family:'Georgia, serif'; font-size:22px">CurrentPrice</th>
+            <th scope="col" style="font-family:'Georgia, serif'; font-size:22px">PeakPrice</th>
+            <th scope="col" style="font-family:'Georgia, serif'; font-size:22px">Profit/Loss (%)</th>
+            <th scope="col" style="font-family:'Georgia, serif'; font-size:22px">Status</th>
+          </tr>
+        </thead>
+            {% if nudgedata %}
+            {% for stocks in nudgedata %}
+             {% if stocks|length > 0 %}
+        <tbody>
+          <tr>
+            <th scope="row">
+              <div class="d-flex align-items-center">
+              <img src={{stocks.1}} alt="" style="width: 40px; height: 40px" class="rounded-circle" />
+              <span class="btn1 badge bg-light text-dark"><a href="{% url 'dailycandle:stockdetails' stocks.0 %}"><p style="font-family:verdana" data-bs-toggle="tooltip" data-bs-html="true" title="click for more details">{{stocks.0}}</p></a></span>
+              </div></th>
+              <td><p class ="mx-3" style="font-size:10px">{{stocks.2}}</p></td>
+              <td><p class ="mx-3" style="font-size:10px">{{stocks.3}}</p></td>
+              <td><p class ="mx-3" style="font-size:10px">{{stocks.4}}</p></td>
+              <td>
+                  {% if stocks.5 > 0 %}
+                  <p class="badge rounded-pill bg-success mx-3" style="font-size:10px">{{stocks.5}}</p>
+                  {% else %}
+                  <p class="badge rounded-pill bg-danger mx-3" style="font-size:10px">{{stocks.5}}</p>
+                  {% endif %}
+              </td>
+              <td><p class="badge rounded-pill bg-info text-dark mx-3" style="font-size:10px">{{stocks.6}}</p></td>
+
+              {% endif%}
+            {% endfor%}
+            {% endif%}
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    {% else %}
+    <p><h1 class="my-5" style="font-family:'Georgia, serif'">Welcome to PriceActionAlerts</h1></p>
+    <p><h3 style="font-family:'Georgia, serif'">Currently you have not selected any stocks to display. Can you add you preferred stocks from your Profile page.</h3></p>
+    {% endif%}
+
+    </div>
+  </br>
+
+</body>
+</html>

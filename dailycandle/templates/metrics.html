@@ -1,0 +1,21 @@
+{% extends 'postlogintemplate.html' %}
+
+{% block title %}
+<title >Price Action Alerts</title>
+{% endblock title %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <p class="mt-5" style="font-family:'Georgia, serif'"><h2>Number Of Total Users: {{users_count}}</h2></p>
+    <p class="my-0" style="font-family:'Georgia, serif'"><h2>Number Of Users Who Have Enabled Watchlist Alert Notifiaction: {{watchlist_alert_count}}</h2></p>
+    <p class="my-0" style="font-family:'Georgia, serif'"><h2>Number Of Users Who Have Enabled Holding Alert Notifiaction: {{holding_alert_count}}</h2></p>
+    <p class="my-0" style="font-family:'Georgia, serif'"><h2>Last Login:</h2></p>
+    <ul>
+        {% for i,j in userlogin_count_by_days.items %}
+        <p><li>{{i}} : {{j}}</li></p>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock body %}
