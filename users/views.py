@@ -41,7 +41,7 @@ def register(request):
                 email_token=email_token,
                 nudgedata={'nudgenotification':False,'maxloss': '', 'maxprofit': '', 'nudgeStockList': ['', '', '', '', '', '', '', '', '', ''],'nudgeStockListPrice': ['', '', '', '', '', '', '', '', '', '']},
             )
-            #print("Register Profile:",profile)
+            #print("Register Profile:")
             send_email_token(useremail,profile.email_token)
             messages.success(request, "New Account Created. Check For Account Activation Email.")
             return redirect("users:login")
