@@ -15,6 +15,7 @@ def send_email_token(email,token):
         email_from = settings.DEFAULT_FROM_EMAIL
         recipient_list = [email]
         print("Activate Your PriceActionAlerts Account: {} and {}".format(email_from,recipient_list))
+        print("Email Server: {} and {}".format(settings.EMAIL_HOST, settings.EMAIL_PORT))
         send_mail(subject, message, email_from, recipient_list)
 
 
