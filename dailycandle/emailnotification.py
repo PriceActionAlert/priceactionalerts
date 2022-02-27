@@ -70,18 +70,18 @@ def send_email_notification(to_email,content,flag):
             subject = 'TradeTheSwing: Holding Alert (' + today_day + ')!'
         message = MIMEMultipart()
         message['Subject'] = subject
-        message['From'] = settings.EMAIL_HOST_USER
+        #message['From'] = settings.EMAIL_HOST_USER
+        message['From'] = settings.DEFAULT_FROM_EMAIL
         message['To'] = to_email
-
-        #print("Type:",type(content))
-        #print("Data:",content)
 
         message.attach(MIMEText(content, "html"))
         msgBody = message.as_string()
 
-        server = smtplib.SMTP('smtp.gmail.com', 587)
+        #server = smtplib.SMTP('smtp.gmail.com', 587)
+        server = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
         server.starttls()
-        server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+        #server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+        server.login(settings.DEFAULT_FROM_EMAIL, settings.EMAIL_HOST_PASSWORD)
         server.sendmail(message['From'], message['To'], msgBody)
 
     except Exception as e:
