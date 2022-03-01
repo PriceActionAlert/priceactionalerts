@@ -601,9 +601,9 @@ def get_analyze_data(stock):
     try:
         stock_info = yf.Ticker(stock.upper() + '.NS').info
         stock_data = yf.download(stock.upper() + '.NS', start=start_date, end=end_date)
-        #print("Tracking Stock:", stock.upper())
+        print("Tracking Stock:", stock.upper())
         #print("Before Modification:")
-        #print(stock_data[-5:])
+        print(stock_data[-5:])
         check_last_traded_day = stock_data[-1:].index[0].strftime('%A')
         check_today_day = datetime.datetime.now().strftime('%A')
         if check_today_day != check_last_traded_day:
@@ -823,11 +823,11 @@ def format_save_data():
     else:
         if today_day == last_traded_day:
             #stock_names = ['M&M','NTPC']
-            stock_names = ['NTPC', 'UPL', 'SUNPHARMA', 'TATACONSUM', 'INDUSINDBK', 'ONGC', 'M&M', 'IOC', 'BHARTIARTL', 'ITC','WIPRO', 'TCS', \
-                           'BRITANNIA', 'COALINDIA', 'GRASIM', 'TATAMOTORS', 'TITAN', 'BPCL', 'JSWSTEEL', 'INFY', 'HDFC','DIVISLAB', \
-                           'SHREECEM', 'CIPLA', 'ADANIPORTS', 'HCLTECH', 'HINDALCO', 'BAJFINANCE', 'KOTAKBANK','ASIANPAINT','NESTLEIND',\
-                           'HDFCLIFE','ULTRACEMCO','RELIANCE','TATASTEEL','HINDUNILVR','SBILIFE','LT','DRREDDY','HDFCBANK','EICHERMOT',\
-                           'SBIN','BAJAJFINSV','AXISBANK','HEROMOTOCO','ICICIBANK','POWERGRID','TECHM','MARUTI']
+            #stock_names = ['NTPC', 'UPL', 'SUNPHARMA', 'TATACONSUM', 'INDUSINDBK', 'ONGC', 'M&M', 'IOC', 'BHARTIARTL', 'ITC','WIPRO', 'TCS', \
+            #               'BRITANNIA', 'COALINDIA', 'GRASIM', 'TATAMOTORS', 'TITAN', 'BPCL', 'JSWSTEEL', 'INFY', 'HDFC','DIVISLAB', \
+            #               'SHREECEM', 'CIPLA', 'ADANIPORTS', 'HCLTECH', 'HINDALCO', 'BAJFINANCE', 'KOTAKBANK','ASIANPAINT','NESTLEIND',\
+            #               'HDFCLIFE','ULTRACEMCO','RELIANCE','TATASTEEL','HINDUNILVR','SBILIFE','LT','DRREDDY','HDFCBANK','EICHERMOT',\
+            #               'SBIN','BAJAJFINSV','AXISBANK','HEROMOTOCO','ICICIBANK','POWERGRID','TECHM','MARUTI']
 
             for stock in stock_names:
                 down_recent = []
@@ -1047,11 +1047,11 @@ def format_save_data():
                             stock_comments.append("The down trend reversal lasted till date:{} to price:{}".format(trend_end[0], trend_end[1]))
                             stock_comments.append("The down trend lasted for Rs:{}".format(trend_end[1] - down_swing[1]))
 
-                #for comment in stock_finance:
-                #    print(comment)
+                for comment in stock_finance:
+                    print(comment)
 
-                #for comment in stock_comments:
-                #    print(comment)
+                for comment in stock_comments:
+                    print(comment)
 
                 stock = ''.join(e for e in stock if e.isalnum())
                 Model = apps.get_model('dailycandle', stock)
