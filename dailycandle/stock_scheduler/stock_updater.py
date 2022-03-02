@@ -12,5 +12,5 @@ def start():
         scheduler = BackgroundScheduler(timezone="Asia/Kolkata")
         #scheduler.add_job(views.format_save_data,"interval",minutes=30,id="stock_001",replace_existing=True)
         #scheduler.add_job(views.send_daily_email, "interval", minutes=2, id="stock_001", replace_existing=True)
-        scheduler.add_job(views.format_save_data, 'cron', hour=17, minute=30, end_date='2030-12-31',id="stock_001",replace_existing=True)
+        scheduler.add_job(views.format_save_data, 'cron', hour=17, minute=45, end_date='2030-12-31',id="stock_001",replace_existing=True)
         scheduler.start()
