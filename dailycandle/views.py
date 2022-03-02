@@ -1053,23 +1053,25 @@ def format_save_data():
                 #for comment in stock_comments:
                 #    print(comment)
 
-                stock = ''.join(e for e in stock if e.isalnum())
-                Model = apps.get_model('dailycandle', stock)
-                stockdb = Model.objects.get(id=1)
-                stockdb.Finance = str(stock_finance)
-                if today_day == 'Monday':
-                    stockdb.Monday = str(stock_comments)
-                if today_day == 'Tuesday':
-                    stockdb.Tuesday = str(stock_comments)
-                if today_day == 'Wednesday':
-                    stockdb.Wednesday = str(stock_comments)
-                if today_day == 'Thursday':
-                    stockdb.Thursday = str(stock_comments)
-                if today_day == 'Friday':
-                    stockdb.Friday = str(stock_comments)
+                try:
+                    stock = ''.join(e for e in stock if e.isalnum())
+                    Model = apps.get_model('dailycandle', stock)
+                    stockdb = Model.objects.get(id=1)
+                    stockdb.Finance = str(stock_finance)
+                    if today_day == 'Monday':
+                        stockdb.Monday = str(stock_comments)
+                    if today_day == 'Tuesday':
+                        stockdb.Tuesday = str(stock_comments)
+                    if today_day == 'Wednesday':
+                        stockdb.Wednesday = str(stock_comments)
+                    if today_day == 'Thursday':
+                        stockdb.Thursday = str(stock_comments)
+                    if today_day == 'Friday':
+                        stockdb.Friday = str(stock_comments)
 
-                stockdb.save()
-                #time.sleep(60)
+                    stockdb.save()
+                except Exception as e:
+                    print("Error while saving data to DB:",str(e))
 
             send_daily_email()
 
